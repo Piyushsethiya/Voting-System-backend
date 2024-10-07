@@ -12,24 +12,22 @@ const checkAdmin = async (userId)=>{
   }
 }
 
-// fetch
+// list of candidate
 
-// router.get(
-//   "/",
-//   /*jwtAuthMiddleware, open this for work on login*/ async (req, res) => {
-//     try {
-//       if(! await checkAdmin(req.user.id)){
-//         return res.status(403).json({error: 'User is not Admin'});
-//       }
-//       const data = await Candidate.find();
-//       console.log("data find successfully");
-//       res.status(200).json(data);
-//     } catch (err) {
-//       console.log(err);
-//       res.status(500).json({ error: " Internal server Error." });
-//     }
-//   }
-// );
+router.get("/", async (req, res) => {
+    try {
+      if(! await checkAdmin(req.user.id)){
+        return res.status(403).json({error: 'User is not Admin'});
+      }
+      const data = await Candidate.find();
+      console.log("data find successfully");
+      res.status(200).json(data);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json({ error: " Internal server Error." });
+    }
+  }
+);
 
 // Add candidate
 router.post("/", async (req, res) => {
@@ -49,7 +47,7 @@ router.post("/", async (req, res) => {
   }
 });
 
-// // profile
+// profile of candidate
 
 // router.get("/profile", async (req, res) => {
 //   try {
@@ -88,6 +86,8 @@ router.put("/:candidateId", async (req, res) => {
   }
 });
 
+// delete Candidate
+
 router.delete('/:candidateId', async(req,res)=>{
   try{
     if(! await checkAdmin(req.user.id)){
@@ -109,7 +109,7 @@ router.delete('/:candidateId', async(req,res)=>{
 // voting 
 
 router.post('/vote/:candidateId', async (req, res)=>{
-  //no admin role
+  // no admin role
   // user vote only once
   const candidateId = req.params.candidateId;
   const userId = req.user.id;
@@ -155,8 +155,8 @@ router.get('/vote/count', async (req, res) =>{
     });
     res.status(200).json(voteRecord);
   }catch(err){
-
+    console.log(err);
+    res.status(500).json({ error: "Internal server Error." });
   }
 })
-
 module.exports = router;
