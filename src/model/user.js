@@ -62,6 +62,26 @@ userSchema.methods.comparepassword = async function (candidatePassword) {
     throw err;
   }
 };
+// userSchema.methods.comparepassword = async function (candidatePassword) {
+//   try {
+//     console.log("Type of candidatePassword:", typeof candidatePassword);
+//     console.log("Type of stored password:", typeof this.password);
+    
+//     // Ensure both are strings
+//     if (typeof candidatePassword !== 'string' || typeof this.password !== 'string') {
+//       throw new Error("Password values must be strings.");
+//     }
+
+//     const isMatch = await bcrypt.compare(candidatePassword, this.password);
+//     console.log("Password match result:", isMatch);
+//     return isMatch;
+//   } catch (err) { 
+//     console.error("Error comparing passwords:", err);
+//     throw err;
+//   }
+// };
+
+
 
 const User = mongoose.model("user", userSchema);
 module.exports = User;
