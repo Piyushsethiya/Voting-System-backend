@@ -16,9 +16,9 @@ const checkAdmin = async (userId)=>{
 
 router.get("/", async (req, res) => {
     try {
-      if(! await checkAdmin(req.user.id)){
-        return res.status(403).json({error: 'User is not Admin'});
-      }
+      // if(! await checkAdmin(req.user.id)){
+      //   return res.status(403).json({error: 'User is not Admin'});
+      // }
       const data = await Candidate.find();
       console.log("data find successfully");
       res.status(200).json(data);
